@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock Paper Scissors</title>
+  </head>
+  <body>
+    <script>
+      let getComputerChoice = () => {
+        let random = Math.floor(Math.random() * 3);
+        if (random === 0) {
+          return "ROCK";
+        } else if (random === 1) {
+          return "PAPER";
+        } else {
+          return "SCISSORS";
+        }
+      };
+
+      let getHumanChoice = () => {
+        let choice = prompt("Which move do you want to pick?", "rock");
+
+        while (
+          choice.toUpperCase() !== "ROCK" &&
+          choice.toUpperCase() !== "SCISSORS" &&
+          choice.toUpperCase() !== "PAPER"
+        ) {
+          console.log(`You cannot pick ${choice}`);
+          choice = prompt("Which move do you want to pick?", "rock");
+        }
+
+        return choice.toUpperCase();
+      };
+
+      let playGame = () => {
+        let computerScore = 0;
+        let humanScore = 0;
+
+        let playRound = (humanChoice, computerChoice) => {
+          switch (humanChoice) {
+            case "ROCK":
+              switch (computerChoice) {
+                case "ROCK":
+                  console.log("Tie, rock and rock.");
+                  break;
+                case "SCISSORS":
+                  console.log("You win! Rock beats scissors.");
+                  humanScore++;
+                  break;
+                case "PAPER":
+                  console.log("You lose. Paper beats rock.");
+                  computerScore++;
+                  break;
+              }
+              break;
+            case "SCISSORS":
+              switch (computerChoice) {
+                case "ROCK":
+                  console.log("You lose. Scissors loses to rock.");
+                  computerScore++;
+                  break;
+                case "SCISSORS":
+                  console.log("Tie, scissors and scissors.");
+                  break;
+                case "PAPER":
+                  console.log("You win! Scissors beats paper.");
+                  humanScore++;
+                  break;
+              }
+              break;
+            case "PAPER":
+              switch (computerChoice) {
+                case "ROCK":
+                  console.log("You win! Paper beats rock.");
+                  humanScore++;
+                  break;
+                case "SCISSORS":
+                  console.log("You lose. Paper loses to scissors.");
+                  computerScore++;
+                  break;
+                case "PAPER":
+                  console.log("Tie, paper and paper.");
+                  break;
+              }
+              break;
+          }
+        };
+`
+        for (let i = 0; i < 5; i++) {
+          let humanChoice = getHumanChoice();
+          let computerChoice = getComputerChoice();
+          playRound(humanChoice, computerChoice);
+        }
+
+        console.log(
+          `Final Score: Human ${humanScore} - Computer ${computerScore}`
+        );
+      };
+
+      playGame();
+    </script>
+  </body>
+</html>
